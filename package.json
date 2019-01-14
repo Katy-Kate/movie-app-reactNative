@@ -4,7 +4,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "react-devtools": "react-devtools"
   },
   "dependencies": {
     "expo": "^32.0.0",
@@ -15,7 +16,12 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz"
   },
   "devDependencies": {
-    "babel-preset-expo": "^5.0.0"
+    "babel-preset-expo": "^5.0.0",
+    "react-devtools": "^3.5.3",
+    "react-loading": "^2.0.3",
+    "react-native-elements": "^0.19.1",
+    "react-native-loading-spinner-overlay": "^1.0.1",
+    "react-native-picker-select": "^5.2.1"
   },
   "private": true
 }

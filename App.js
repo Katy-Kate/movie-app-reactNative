@@ -1,3 +1,2 @@
-import Root from "./src/components/Root.js";
-
+import Root from './src/components/Root.js';
 export default Root;

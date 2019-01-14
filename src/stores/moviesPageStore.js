@@ -1,58 +1,74 @@
-import { observable, action, values, reaction } from "mobx";
 import CallApi from "../api/api";
+import { action, observable, configure, reaction, values } from "mobx";
 
-const initialFilters = {
+configure({ enforceActions: "always" });
+
+const defaultFilters = {
   sort_by: "popularity.desc",
-  primary_release_year: "2018",
+  primary_release_year: "Все фильмы",
   with_genres: []
 };
 
 class MoviesPageStore {
   constructor() {
+    reaction(() => this.page, () => this.getMovies());
     reaction(
       () => values(this.filters),
       () => {
-        console.log(this.filters.sort_by);
-        this.onChangePagination({ page: 1 });
-        this.getMovies();
-      }
-    );
-
-    reaction(
-      () => this.page,
-      () => {
+        this.onChangePage(1);
         this.getMovies();
       }
     );
   }
-  @observable page = 1;
 
-  @observable total_pages = "";
-
-  @observable movies = [];
-
-  @observable genresList = [];
-
-  @observable isLoading = false;
-
-  @observable filters = {
+  @observable
+  filters = {
     sort_by: "popularity.desc",
-    primary_release_year: "2018",
+    primary_release_year: "Все фильмы",
     with_genres: []
   };
 
+  @observable genres = [];
+
+  @observable page = 1;
+
+  @observable movies = [];
+
+  @observable isLoading = false;
+
+  @observable total_pages = "";
+
   @action
-  onChangePagination = ({ page, total_pages }) => {
+  changeLoading = booleanMeaning => {
+    this.isLoading = booleanMeaning;
+  };
+
+  nextPage = () => {
+    this.onChangePage(this.page + 1);
+  };
+
+  prevPage = () => {
+    this.onChangePage(this.page - 1);
+  };
+
+  @action
+  onChangePage = page => {
     this.page = page;
-    this.total_pages = total_pages;
+  };
+
+  @action
+  onClearFilters = () => {
+    this.updateFilters(defaultFilters);
+    this.onChangePage(1);
+    this.resetGenres();
   };
 
   @action
   onChangeFilters = event => {
+    console.log(event);
     this.filters[event.target.name] = event.target.value;
   };
 
-  @action
   onChangeGenres = event => {
     this.onChangeFilters({
       target: {
@@ -65,53 +81,6 @@ class MoviesPageStore {
       }
     });
   };
-
-  @action
-  onClearFilters = () => {
-    for (let key in initialFilters) {
-      this.filters[key] = initialFilters[key];
-    }
-    this.page = 1;
-    this.total_pages = "";
-  };
-
-  @action
-  getMovies = () => {
-    this.isLoading = true;
-    const { sort_by, primary_release_year, with_genres } = this.filters;
-    const queryStringParams = {
-      language: "ru-RU",
-      sort_by: sort_by,
-      page: this.page,
-      primary_release_year: primary_release_year
-    };
-
-    if (with_genres.length > 0)
-      queryStringParams.with_genres = with_genres.join(",");
-
-    CallApi.get("/discover/movie", {
-      params: queryStringParams
-    }).then(data => {
-      this.onChangePagination({
-        page: data.page,
-        total_pages: data.total_pages
-      });
-      this.movies = data.results;
-      this.isLoading = false;
-    });
-  };
-
-  @action
-  getGenres = () => {
-    CallApi.get("/genre/movie/list", {
-      params: {
-        language: "ru-RU"
-      }
-    }).then(data => {
-      this.genresList = data.genres;
-    });
-  };
-
   @action
   resetGenres = () => {
     this.onChangeFilters({
@@ -123,20 +92,56 @@ class MoviesPageStore {
   };
 
   @action
-  nextPage = () => {
-    this.onChangePagination({
-      page: this.page + 1,
-      total_pages: this.total_pages
+  updateFilters = filters => {
+    for (const key in filters) {
+      this.filters[key] = filters[key];
+    }
+  };
+
+  @action
+  updateGenres = genres => {
+    this.genres = genres;
+  };
+
+  @action
+  updateMovies = movies => {
+    this.movies = movies;
+  };
+
+  @action
+  updateTotalPages = totalPages => {
+    this.total_pages = totalPages;
+  };
+
+  @action
+  getGenres = () => {
+    CallApi.get("/genre/movie/list", {
+      params: { language: "ru - RU" }
+    }).then(data => {
+      this.updateGenres(data.genres);
     });
   };
 
   @action
-  prevPage = page => event => {
-    this.onChangePagination({
-      page: this.page - 1,
-      total_pages: this.total_pages
+  getMovies = () => {
+    this.changeLoading(true);
+    const { sort_by, primary_release_year, with_genres } = this.filters;
+    const queryStringParams = {
+      language: "ru-RU",
+      sort_by,
+      page: this.page,
+      primary_release_year
+    };
+
+    if (with_genres.length > 0) {
+      queryStringParams.with_genres = with_genres.join(",");
+    }
+    CallApi.get("/discover/movie", { params: queryStringParams }).then(data => {
+      this.onChangePage(data.page);
+      this.updateTotalPages(data.total_pages);
+      this.updateMovies(data.results);
+      this.changeLoading(false);
     });
   };
 }
-
 export const moviesPageStore = new MoviesPageStore();
