@@ -1,33 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
-import { toJS } from 'mobx';
-
-const styles = StyleSheet.create({
-  card: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    borderRadius: 10,
-    backgroundColor: 'powderblue',
-    margin: 10,
-    overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: 'white'
-  },
-  cardImgWrap: {},
-  cardBody: {
-    padding: 10,
-    alignSelf: 'center'
-  },
-  cardTitle: {
-    fontSize: 20,
-    color: '#060340'
-  },
-  cardText: {},
-  cardImg: {
-    height: 200
-  }
-});
+import { StyleSheet, View, Image } from 'react-native';
+import { Card, Text } from 'react-native-elements';
 
 class MovieItem extends React.Component {
   render () {
@@ -38,29 +11,20 @@ class MovieItem extends React.Component {
             item.poster_path}`
         : 'https://lajoyalink.com/wp-content/uploads/2018/03/Movie.jpg';
     return (
-      <View style={styles.card}>
-        <View style={styles.cardImgWrap}>
-          <Image
-            style={styles.cardImg}
-            source={{
-              uri: img
-            }}
-          />
+      <Card
+        image={{
+          uri: img
+        }}
+      >
+        <View>
+          <Text h4 style={{ color: 'steelblue' }}>
+            {item.title}
+          </Text>
+          <Text>
+            Рейтинг: {item.vote_average}
+          </Text>
         </View>
-
-        <View style={styles.cardBody}>
-          <View style={styles.cardText}>
-            <Text style={styles.cardTitle}>
-              {item.title}
-            </Text>
-          </View>
-          <View style={styles.cardText}>
-            <Text style={styles.cardText}>
-              Рейтинг: {item.vote_average}
-            </Text>
-          </View>
-        </View>
-      </View>
+      </Card>
     );
   }
 }

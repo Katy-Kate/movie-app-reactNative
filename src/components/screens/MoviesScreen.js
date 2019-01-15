@@ -1,29 +1,10 @@
 import React from "react";
-import { StyleSheet, View, Text, Button, Picker, FlatList } from "react-native";
-import { List, ListItem, Overlay } from "react-native-elements";
-import { inject, observer } from "mobx-react";
-import { toJS } from "mobx";
+import { View, FlatList } from "react-native";
 import Filters from "../Filters/Filters";
 import Loader from "../Loader";
 import MovieItem from "../Movies/MovieItem";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "powderblue",
-    marginTop: 30
-  },
-  filters: {
-    flex: 1,
-    backgroundColor: "skyblue",
-    justifyContent: "center",
-    alignItems: "stretch",
-    width: 400
-  },
-  card: {
-    height: 30
-  }
-});
+import { inject, observer } from "mobx-react";
 
 @inject("moviesPageStore")
 @observer
@@ -36,17 +17,15 @@ class MoviesScreen extends React.Component {
     const { moviesPageStore: { isLoading, movies } } = this.props;
 
     return (
-      <View style={styles.container}>
-        <View style={styles.filters}>
-          <Filters />
-        </View>
-        <View style={{ flex: 10, backgroundColor: "steelblue" }}>
+      <View>
+        <Filters style={{ backgroundColor: "powderblue" }} />
+        <View style={{ backgroundColor: "steelblue" }}>
           {isLoading
             ? <Loader />
             : <FlatList
                 data={movies}
                 renderItem={({ item }) => <MovieItem item={item} />}
-                keyExtractor={item => Number(item.id)}
+                keyExtractor={item => String(item.id)}
               />}
         </View>
       </View>
@@ -55,7 +34,3 @@ class MoviesScreen extends React.Component {
 }
 
 export default MoviesScreen;
-
-/* movies.map((movie, index) =>
-                <MovieItem item={movie} key={index} /> 
-)} */
