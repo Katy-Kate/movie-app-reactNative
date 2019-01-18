@@ -16,11 +16,9 @@ class LoginFormStore {
     base: null
   };
 
-  @observable
-  submitting = false;
+  @observable submitting = false;
 
-  @observable
-  showLoginModal = false;
+  @observable showLoginModal = false;
 
   validateFields = () => {
     const errors = {};
@@ -37,19 +35,22 @@ class LoginFormStore {
   };
 
   @action
-  handleBlur = event => {
-    const name = event.target.name;
+  handleBlur = (text, nameInput) => {
     const errors = this.validateFields();
-    this.errors[name] = errors[name];
+    this.errors[nameInput] = errors[nameInput];
+    // const name = event.target.name;
+    // const errors = this.validateFields();
+    // this.errors[name] = errors[name];
   };
 
   @action
-  onChange = event => {
-    this.loginValues[event.target.name] = event.target.value;
-    this.errors[event.target.name] = "";
-    if (this.errors.base) {
-      this.errors.base = null;
-    }
+  onChange = (text, nameInput) => {
+    this.loginValues[nameInput] = text;
+    console.log("ffff", this.loginValues[nameInput]);
+    this.errors[nameInput] = "";
+    //  if (this.errors.base) {
+    //    this.errors.base = null;
+    // }
   };
 
   @action

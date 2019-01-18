@@ -8,6 +8,7 @@
     "react-devtools": "react-devtools"
   },
   "dependencies": {
+    "color": "^3.1.0",
     "expo": "^32.0.0",
     "mobx": "^5.8.0",
     "mobx-react": "^5.4.3",
