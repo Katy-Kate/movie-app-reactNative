@@ -29,3 +29,24 @@ export const loader = EStyleSheet.create({
     backgroundColor: '#F5FCFF'
   }
 });
+
+export const loginFormStyles = EStyleSheet.create({
+  loginFormContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  input: {
+    paddingHorizontal: 5,
+    backgroundColor: '#F5FCFF',
+    borderRadius: 5
+  },
+  button: {
+    backgroundColor: 'rgba(92, 99,216, 1)',
+    width: 300,
+    height: 45,
+    borderColor: 'transparent',
+    borderWidth: 0,
+    borderRadius: 5
+  }
+});
