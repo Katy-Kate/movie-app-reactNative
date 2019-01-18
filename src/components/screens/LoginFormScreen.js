@@ -1,5 +1,4 @@
 import React from "react";
-
 import { View, Text, TextInput } from "react-native";
 import { Button } from "react-native-elements";
 import { loginFormStyles } from "../styles";
@@ -22,9 +21,9 @@ class LoginFormScreen extends React.Component {
     } = this.props;
 
     const submitStyles = [loginFormStyles.submit];
-    if (submitting) {
-      submitStyles.push(loginFormStyles.submitDisabled);
-    }
+    // if (submitting) {
+    //   submitStyles.push(loginFormStyles.submitDisabled);
+    // }
     return (
       <View style={loginFormStyles.loginFormContainer}>
         <TextInput
@@ -67,7 +66,9 @@ class LoginFormScreen extends React.Component {
 
         <Button
           title="Submit"
-          buttonStyle={submitStyles}
+          buttonStyle={loginFormStyles.submitStyles}
+          disabled={submitting}
+          disabledStyle={loginFormStyles.submitDisabled}
           onPress={() => {
             onLogin();
           }}

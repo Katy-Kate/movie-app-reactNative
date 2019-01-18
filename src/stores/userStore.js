@@ -19,30 +19,28 @@ class UserStore {
     return Boolean(Object.keys(this.user).length);
   }
 
-  @action
-  getAuth() {
-    //const session_id = cookies.get("session_id");
-    if (session_id) {
-      CallApi.get("/account", {
-        params: { session_id: session_id }
-      }).then(user => {
-        this.updateAuth({ user });
-        // this.getListAddedMovies("favorite");
-        // this.getListAddedMovies("watchlist");
-      });
-    }
-  }
+  // @action
+  // getAuth() {
+  //   //const session_id = cookies.get("session_id");
+  //   if (session_id) {
+  //     CallApi.get("/account", {
+  //       params: { session_id: session_id }
+  //     }).then(user => {
+  //       this.updateAuth({ user });
+  //       // this.getListAddedMovies("favorite");
+  //       // this.getListAddedMovies("watchlist");
+  //     });
+  //   }
+  // }
 
   @action
   updateAuth = ({ user, session_id }) => {
     this.user = user;
-    if (session_id) {
-      // cookies.set("session_id", session_id, {
-      //   path: "/",
-      //   maxAge: 2592000
-      // });
-      this.session_id = session_id;
-    }
+    // cookies.set("session_id", session_id, {
+    //   path: "/",
+    //   maxAge: 2592000
+    // });
+    this.session_id = session_id;
   };
 
   @action

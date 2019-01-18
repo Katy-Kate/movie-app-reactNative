@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { filtersStyles } from "./styles";
+import { filtersStyles } from "../styles";
 import PrimaryReleaseYear from "./PrimaryReleaseYear";
 import SortBy from "./SortBy";
 

@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Image } from 'react-native';
-import { Card, Text } from 'react-native-elements';
+import { StyleSheet, View, Image, Text } from 'react-native';
+import { Card } from 'react-native-elements';
+import { cardMovieStyles } from '../styles';
 
 class MovieItem extends React.Component {
   render () {
@@ -12,12 +13,14 @@ class MovieItem extends React.Component {
         : 'https://lajoyalink.com/wp-content/uploads/2018/03/Movie.jpg';
     return (
       <Card
+        containerStyle={cardMovieStyles.cardMovie}
+        imageWrapperStyle={cardMovieStyles.imageMovie}
         image={{
           uri: img
         }}
       >
         <View>
-          <Text h4 style={{ color: 'steelblue' }}>
+          <Text style={cardMovieStyles.cardMovieTitle}>
             {item.title}
           </Text>
           <Text>

@@ -1,6 +1,7 @@
 import React from "react";
 import RNPickerSelect from "react-native-picker-select";
-import { pickerSelectStyles } from "./styles";
+import { StyleSheet } from "react-native";
+import { pickerSelectStyles } from "../styles";
 
 import { inject, observer } from "mobx-react";
 
@@ -35,7 +36,7 @@ class PrimaryReleaseYear extends React.Component {
       <RNPickerSelect
         items={options}
         placeholder={{}}
-        style={{ pickerSelectStyles }}
+        style={{ ...pickerSelectStyles }}
         onValueChange={value => {
           onChangeFilters({ target: { name: "primary_release_year", value } });
         }}

@@ -3,7 +3,7 @@ import { View, FlatList } from "react-native";
 import Filters from "../Filters/Filters";
 import Loader from "../Loader";
 import MovieItem from "../Movies/MovieItem";
-
+import Header from "../Header/Header";
 import { inject, observer } from "mobx-react";
 
 @inject("moviesPageStore")
@@ -18,6 +18,7 @@ class MoviesScreen extends React.Component {
 
     return (
       <View>
+        <Header />
         <Filters style={{ backgroundColor: "powderblue" }} />
         <View style={{ backgroundColor: "steelblue" }}>
           {isLoading

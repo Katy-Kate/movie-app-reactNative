@@ -7,8 +7,6 @@ import { Router, Stack, Scene } from 'react-native-router-flux';
 import MoviesScreen from './screens/MoviesScreen';
 import LoginFormScreen from './screens/LoginFormScreen';
 
-// import { toJS } from 'mobx';
-
 class Root extends React.Component {
   render () {
     return (
@@ -19,8 +17,18 @@ class Root extends React.Component {
       >
         <Router>
           <Stack key='root'>
-            <Scene key='loginform' component={LoginFormScreen} title='Login' />
-            <Scene key='movies' component={MoviesScreen} title='Movies' />
+            <Scene
+              hideNavBar
+              key='loginform'
+              component={LoginFormScreen}
+              title='Login'
+            />
+            <Scene
+              hideNavBar
+              key='movies'
+              component={MoviesScreen}
+              title='Movies'
+            />
           </Stack>
         </Router>
       </Provider>

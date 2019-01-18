@@ -52,8 +52,6 @@ class LoginFormStore {
 
   @action
   onLogin = () => {
-    // event.preventDefault();
-    console.log("1");
     const errors = this.validateFields();
     if (Object.keys(errors).length > 0) {
       this.updateErrors(errors);
@@ -81,7 +79,6 @@ class LoginFormStore {
 
   onSubmit = () => {
     this.onChangeSubmiting(true);
-    console.log("2");
     let session_id = null;
     let baseError = null;
     CallApi.get("/authentication/token/new")
@@ -101,7 +98,6 @@ class LoginFormStore {
       })
       .then(data => {
         session_id = data.session_id;
-
         return CallApi.get("/account", {
           params: { session_id: data.session_id }
         });
@@ -109,7 +105,6 @@ class LoginFormStore {
       .then(user => {
         this.onChangeSubmiting(false);
         userStore.updateAuth({ session_id, user });
-
         Actions.movies();
         //this.toggleModal();
       })
