@@ -1,4 +1,5 @@
 import CallApi from "../api/api";
+import { Actions } from "react-native-router-flux";
 import { action, observable, configure } from "mobx";
 import { userStore } from "./userStore";
 configure({ enforceActions: "always" });
@@ -18,7 +19,7 @@ class LoginFormStore {
 
   @observable submitting = false;
 
-  @observable showLoginModal = false;
+  // @observable showLoginModal = false;
 
   validateFields = () => {
     const errors = {};
@@ -38,24 +39,21 @@ class LoginFormStore {
   handleBlur = (text, nameInput) => {
     const errors = this.validateFields();
     this.errors[nameInput] = errors[nameInput];
-    // const name = event.target.name;
-    // const errors = this.validateFields();
-    // this.errors[name] = errors[name];
   };
 
   @action
   onChange = (text, nameInput) => {
     this.loginValues[nameInput] = text;
-    console.log("ffff", this.loginValues[nameInput]);
     this.errors[nameInput] = "";
-    //  if (this.errors.base) {
-    //    this.errors.base = null;
-    // }
+    if (this.errors.base) {
+      this.errors.base = null;
+    }
   };
 
   @action
-  onLogin = event => {
-    event.preventDefault();
+  onLogin = () => {
+    // event.preventDefault();
+    console.log("1");
     const errors = this.validateFields();
     if (Object.keys(errors).length > 0) {
       this.updateErrors(errors);
@@ -71,10 +69,10 @@ class LoginFormStore {
     }
   };
 
-  @action
-  toggleModal = () => {
-    this.showLoginModal = !this.showLoginModal;
-  };
+  // @action
+  // toggleModal = () => {
+  //   this.showLoginModal = !this.showLoginModal;
+  // };
 
   @action
   onChangeSubmiting = value => {
@@ -83,6 +81,7 @@ class LoginFormStore {
 
   onSubmit = () => {
     this.onChangeSubmiting(true);
+    console.log("2");
     let session_id = null;
     let baseError = null;
     CallApi.get("/authentication/token/new")
@@ -102,6 +101,7 @@ class LoginFormStore {
       })
       .then(data => {
         session_id = data.session_id;
+
         return CallApi.get("/account", {
           params: { session_id: data.session_id }
         });
@@ -109,7 +109,9 @@ class LoginFormStore {
       .then(user => {
         this.onChangeSubmiting(false);
         userStore.updateAuth({ session_id, user });
-        this.toggleModal();
+
+        Actions.movies();
+        //this.toggleModal();
       })
       .catch(error => {
         console.log("error", error);

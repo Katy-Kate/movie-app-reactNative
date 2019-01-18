@@ -52,7 +52,7 @@ export const loginFormStyles = EStyleSheet.create({
     borderColor: () => Color(EStyleSheet.value('$mainDarkColor')).darken(0.5),
     borderWidth: 0.3
   },
-  button: {
+  submit: {
     backgroundColor: () =>
       Color(EStyleSheet.value('$mainDarkColor')).darken(0.5),
     width: 300,
@@ -61,6 +61,10 @@ export const loginFormStyles = EStyleSheet.create({
     borderColor: 'transparent',
     borderWidth: 0,
     borderRadius: 7
+  },
+  submitDisabled: {
+    backgroundColor: () =>
+      Color(EStyleSheet.value('$mainDarkColor')).lighten(0.5)
   },
   errors: {
     width: 300,

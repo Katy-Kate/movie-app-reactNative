@@ -1,5 +1,5 @@
 import React from "react";
-import { Actions } from "react-native-router-flux";
+
 import { View, Text, TextInput } from "react-native";
 import { Button } from "react-native-elements";
 import { loginFormStyles } from "../styles";
@@ -11,8 +11,20 @@ import { inject, observer } from "mobx-react";
 class LoginFormScreen extends React.Component {
   render() {
     const {
-      loginFormStore: { loginValues, onChange, handleBlur, errors }
+      loginFormStore: {
+        loginValues,
+        onChange,
+        handleBlur,
+        errors,
+        onLogin,
+        submitting
+      }
     } = this.props;
+
+    const submitStyles = [loginFormStyles.submit];
+    if (submitting) {
+      submitStyles.push(loginFormStyles.submitDisabled);
+    }
     return (
       <View style={loginFormStyles.loginFormContainer}>
         <TextInput
@@ -55,11 +67,14 @@ class LoginFormScreen extends React.Component {
 
         <Button
           title="Submit"
-          buttonStyle={loginFormStyles.button}
+          buttonStyle={submitStyles}
           onPress={() => {
-            Actions.movies();
+            onLogin();
           }}
         />
+        <Text style={loginFormStyles.errors}>
+          {errors.base}
+        </Text>
       </View>
     );
   }
