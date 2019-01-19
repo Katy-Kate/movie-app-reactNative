@@ -7,7 +7,6 @@ import { Router, Stack, Scene } from 'react-native-router-flux';
 import MoviesScreen from './screens/MoviesScreen';
 import LoginFormScreen from './screens/LoginFormScreen';
 import FiltersScreen from './screens/FiltersScreen';
-import Filters from './Filters/Filters';
 
 class Root extends React.Component {
   render () {

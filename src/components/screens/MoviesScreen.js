@@ -1,6 +1,5 @@
 import React from "react";
 import { View, FlatList } from "react-native";
-import Filters from "../Filters/Filters";
 import Loader from "../Loader";
 import MovieItem from "../Movies/MovieItem";
 import Header from "../Header/Header";
