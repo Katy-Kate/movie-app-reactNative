@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Text, TextInput } from "react-native";
-import { Button } from "react-native-elements";
+import { View, Text, TextInput, KeyboardAvoidingView } from "react-native";
+import { Button, Input } from "react-native-elements";
 import { loginFormStyles } from "../styles";
 
 import { inject, observer } from "mobx-react";
@@ -20,23 +20,25 @@ class LoginFormScreen extends React.Component {
       }
     } = this.props;
 
-    const submitStyles = [loginFormStyles.submit];
+    //const submitStyles = [loginFormStyles.submit];
     // if (submitting) {
     //   submitStyles.push(loginFormStyles.submitDisabled);
     // }
     return (
       <View style={loginFormStyles.loginFormContainer}>
-        <TextInput
-          style={loginFormStyles.input}
-          onChangeText={text => onChange(text, "username")}
-          onBlur={text => {
-            handleBlur(text, "username");
-          }}
-          value={loginValues.username}
-        />
-        <Text style={loginFormStyles.errors}>
-          {errors.username}
-        </Text>
+        <KeyboardAvoidingView style={{}} behavior="padding">
+          <TextInput
+            style={loginFormStyles.input}
+            onChangeText={text => onChange(text, "username")}
+            onBlur={text => {
+              handleBlur(text, "username");
+            }}
+            value={loginValues.username}
+          />
+          <Text style={loginFormStyles.errors}>
+            {errors.username}
+          </Text>
+        </KeyboardAvoidingView>
 
         <TextInput
           style={loginFormStyles.input}

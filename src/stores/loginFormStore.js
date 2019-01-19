@@ -19,8 +19,6 @@ class LoginFormStore {
 
   @observable submitting = false;
 
-  // @observable showLoginModal = false;
-
   validateFields = () => {
     const errors = {};
     if (this.loginValues.username.length <= 4) {
@@ -67,11 +65,6 @@ class LoginFormStore {
     }
   };
 
-  // @action
-  // toggleModal = () => {
-  //   this.showLoginModal = !this.showLoginModal;
-  // };
-
   @action
   onChangeSubmiting = value => {
     this.submitting = value;
@@ -106,7 +99,6 @@ class LoginFormStore {
         this.onChangeSubmiting(false);
         userStore.updateAuth({ session_id, user });
         Actions.movies();
-        //this.toggleModal();
       })
       .catch(error => {
         console.log("error", error);

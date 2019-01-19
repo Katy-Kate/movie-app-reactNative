@@ -6,6 +6,8 @@ import { userStore } from '../stores/userStore';
 import { Router, Stack, Scene } from 'react-native-router-flux';
 import MoviesScreen from './screens/MoviesScreen';
 import LoginFormScreen from './screens/LoginFormScreen';
+import FiltersScreen from './screens/FiltersScreen';
+import Filters from './Filters/Filters';
 
 class Root extends React.Component {
   render () {
@@ -29,6 +31,7 @@ class Root extends React.Component {
               component={MoviesScreen}
               title='Movies'
             />
+            <Scene key='filters' component={FiltersScreen} title='Filters' />
           </Stack>
         </Router>
       </Provider>

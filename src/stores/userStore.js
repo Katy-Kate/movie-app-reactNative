@@ -1,9 +1,8 @@
 import CallApi from "../api/api";
-// import Cookies from "universal-cookie";
 import { action, observable, configure, computed } from "mobx";
 
 configure({ enforceActions: "always" });
-// const cookies = new Cookies();
+
 
 class UserStore {
   @observable user = {};

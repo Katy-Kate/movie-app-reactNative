@@ -19,7 +19,6 @@ class MoviesScreen extends React.Component {
     return (
       <View>
         <Header />
-        <Filters style={{ backgroundColor: "powderblue" }} />
         <View style={{ backgroundColor: "steelblue" }}>
           {isLoading
             ? <Loader />

@@ -18,7 +18,8 @@ EStyleSheet.build({
 
 export const loader = EStyleSheet.create({
   spinnerTextStyle: {
-    color: '$white'
+    color: '$white',
+    zIndex: 2
   },
 
   container: {
@@ -78,7 +79,7 @@ export const loginFormStyles = EStyleSheet.create({
 export const headerStyles = EStyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     paddingTop: 30,
     paddingHorizontal: 10,
     paddingBottom: 10,
@@ -96,18 +97,18 @@ export const headerStyles = EStyleSheet.create({
 export const pickerSelectStyles = {
   inputIOS: {
     fontSize: 8,
-    paddingTop: 3,
+    paddingTop: 5,
     paddingHorizontal: 10,
-    paddingBottom: 3,
+    paddingBottom: 5,
     borderWidth: 1,
     borderColor: 'gray',
     height: 30
   },
 
   inputAndroid: {
-    paddingTop: 3,
+    paddingTop: 5,
     paddingHorizontal: 10,
-    paddingBottom: 3,
+    paddingBottom: 5,
     borderWidth: 1,
     borderColor: 'gray',
     height: 30
@@ -116,21 +117,23 @@ export const pickerSelectStyles = {
 
 export const filtersStyles = EStyleSheet.create({
   wrapper: {
-    backgroundColor: 'powderblue',
+    backgroundColor: '$mainColor',
     paddingHorizontal: 20,
     paddingVertical: 10,
-    height: 100
+    height: '100%',
+    zIndex: 10
   },
 
   filters: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'stretch'
   },
 
   title: {
     fontSize: () => 1.3 * EStyleSheet.value('$fontSise'),
     color: '$mainDarkColor',
+    marginBottom: 10,
     paddingBottom: 10,
     textAlign: 'center',
     fontWeight: '300'
