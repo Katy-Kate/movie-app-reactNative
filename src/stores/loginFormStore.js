@@ -34,14 +34,14 @@ class LoginFormStore {
   };
 
   @action
-  handleBlur = (text, nameInput) => {
+  handleBlur = (value, nameInput) => {
     const errors = this.validateFields();
     this.errors[nameInput] = errors[nameInput];
   };
 
   @action
-  onChange = (text, nameInput) => {
-    this.loginValues[nameInput] = text;
+  onChange = (value, nameInput) => {
+    this.loginValues[nameInput] = value;
     this.errors[nameInput] = "";
     if (this.errors.base) {
       this.errors.base = null;

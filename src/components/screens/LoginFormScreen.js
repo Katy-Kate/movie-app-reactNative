@@ -20,64 +20,66 @@ class LoginFormScreen extends React.Component {
       }
     } = this.props;
 
-    //const submitStyles = [loginFormStyles.submit];
-    // if (submitting) {
-    //   submitStyles.push(loginFormStyles.submitDisabled);
-    // }
     return (
       <View style={loginFormStyles.loginFormContainer}>
-        <KeyboardAvoidingView style={{}} behavior="padding">
+        <KeyboardAvoidingView behavior="position">
           <TextInput
             style={loginFormStyles.input}
-            onChangeText={text => onChange(text, "username")}
-            onBlur={text => {
-              handleBlur(text, "username");
+            onChangeText={value => onChange(value, "username")}
+            onBlur={value => {
+              handleBlur(value, "username");
             }}
             value={loginValues.username}
           />
-          <Text style={loginFormStyles.errors}>
-            {errors.username}
-          </Text>
+          {errors.username
+            ? <Text style={loginFormStyles.errors}>
+                {errors.username}
+              </Text>
+            : null}
+
+          <TextInput
+            style={loginFormStyles.input}
+            secureTextEntry={true}
+            onChangeText={value => onChange(value, "password")}
+            onBlur={value => {
+              handleBlur(value, "password");
+            }}
+            value={loginValues.password}
+          />
+          {errors.password
+            ? <Text style={loginFormStyles.errors}>
+                {errors.password}
+              </Text>
+            : null}
+
+          <TextInput
+            style={loginFormStyles.input}
+            secureTextEntry={true}
+            onChangeText={value => onChange(value, "repeatPassword")}
+            onBlur={value => {
+              handleBlur(value, "repeatPassword");
+            }}
+            value={loginValues.repeatPassword}
+          />
+          {errors.repeatPassword
+            ? <Text style={loginFormStyles.errors}>
+                {errors.repeatPassword}
+              </Text>
+            : null}
         </KeyboardAvoidingView>
-
-        <TextInput
-          style={loginFormStyles.input}
-          secureTextEntry={true}
-          onChangeText={text => onChange(text, "password")}
-          onBlur={text => {
-            handleBlur(text, "password");
-          }}
-          value={loginValues.password}
-        />
-        <Text style={loginFormStyles.errors}>
-          {errors.password}
-        </Text>
-
-        <TextInput
-          style={loginFormStyles.input}
-          secureTextEntry={true}
-          onChangeText={text => onChange(text, "repeatPassword")}
-          onBlur={text => {
-            handleBlur(text, "repeatPassword");
-          }}
-          value={loginValues.repeatPassword}
-        />
-        <Text style={loginFormStyles.errors}>
-          {errors.repeatPassword}
-        </Text>
-
         <Button
           title="Submit"
+          fontSize={14}
           buttonStyle={loginFormStyles.submitStyles}
           disabled={submitting}
           disabledStyle={loginFormStyles.submitDisabled}
-          onPress={() => {
-            onLogin();
-          }}
+          onPress={onLogin}
         />
-        <Text style={loginFormStyles.errors}>
-          {errors.base}
-        </Text>
+        {errors.base
+          ? <Text style={loginFormStyles.errors}>
+              {errors.base}
+            </Text>
+          : null}
       </View>
     );
   }

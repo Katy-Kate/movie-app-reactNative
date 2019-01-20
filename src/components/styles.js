@@ -1,6 +1,7 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { StyleSheet } from 'react-native';
-let Color = require('color');
+const Color = require('color');
+// const window = Dimensions.get('window');
 
 EStyleSheet.build({
   $mainColor: 'powderblue',
@@ -11,7 +12,7 @@ EStyleSheet.build({
   $black: '#000000',
   $errors: 'red',
 
-  $fontSise: 14,
+  $fontSize: 14,
 
   $borderRadiusButton: 7
 });
@@ -37,7 +38,9 @@ export const loginFormStyles = EStyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-
+  keyboardContainer: {
+    paddingTop: 30
+  },
   input: {
     width: 300,
     height: 45,
@@ -49,7 +52,7 @@ export const loginFormStyles = EStyleSheet.create({
     color: '$mainColor',
     borderColor: () => Color(EStyleSheet.value('$mainDarkColor')).darken(0.5),
     borderWidth: 0.3,
-    fontSize: '$fontSise'
+    fontSize: '$fontSize'
   },
 
   submitStyles: {
@@ -58,8 +61,7 @@ export const loginFormStyles = EStyleSheet.create({
     width: 300,
     height: 45,
     marginTop: 10,
-    borderRadius: '$borderRadiusButton',
-    fontSize: '$fontSise'
+    borderRadius: '$borderRadiusButton'
   },
 
   submitDisabled: {
@@ -72,7 +74,7 @@ export const loginFormStyles = EStyleSheet.create({
     paddingHorizontal: 5,
     alignContent: 'flex-start',
     color: '$errors',
-    fontSize: () => 0.7 * EStyleSheet.value('$fontSise')
+    fontSize: () => 0.7 * EStyleSheet.value('$fontSize')
   }
 });
 
@@ -96,7 +98,7 @@ export const headerStyles = EStyleSheet.create({
 
 export const pickerSelectStyles = {
   inputIOS: {
-    fontSize: 8,
+    fontSize: '$fontSize',
     paddingTop: 5,
     paddingHorizontal: 10,
     paddingBottom: 5,
@@ -106,6 +108,7 @@ export const pickerSelectStyles = {
   },
 
   inputAndroid: {
+    fontSize: '$fontSize',
     paddingTop: 5,
     paddingHorizontal: 10,
     paddingBottom: 5,
@@ -131,7 +134,7 @@ export const filtersStyles = EStyleSheet.create({
   },
 
   title: {
-    fontSize: () => 1.3 * EStyleSheet.value('$fontSise'),
+    fontSize: () => 1.3 * EStyleSheet.value('$fontSize'),
     color: '$mainDarkColor',
     marginBottom: 10,
     paddingBottom: 10,
@@ -147,7 +150,7 @@ export const cardMovieStyles = EStyleSheet.create({
   },
 
   cardMovieTitle: {
-    fontSize: () => 1.7 * EStyleSheet.value('$fontSise'),
+    fontSize: () => 1.7 * EStyleSheet.value('$fontSize'),
     color: '$mainDarkColor',
     fontWeight: '500'
   },

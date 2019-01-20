@@ -20,7 +20,7 @@ class Root extends React.Component {
           <Stack key='root'>
             <Scene
               hideNavBar
-              key='loginform'
+              key='loginForm'
               component={LoginFormScreen}
               title='Login'
             />
