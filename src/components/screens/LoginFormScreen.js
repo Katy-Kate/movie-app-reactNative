@@ -5,9 +5,15 @@ import { loginFormStyles } from "../styles";
 
 import { inject, observer } from "mobx-react";
 
-@inject("loginFormStore")
+@inject(({ loginFormStore, userStore }) => ({
+  loginFormStore,
+  userStore
+}))
 @observer
 class LoginFormScreen extends React.Component {
+  componentDidMount(){
+    this.props.userStore.getAuth();
+    }
   render() {
     const {
       loginFormStore: {

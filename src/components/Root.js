@@ -9,6 +9,7 @@ import LoginFormScreen from './screens/LoginFormScreen';
 import FiltersScreen from './screens/FiltersScreen';
 
 class Root extends React.Component {
+
   render () {
     return (
       <Provider

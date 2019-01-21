@@ -98,7 +98,6 @@ export const headerStyles = EStyleSheet.create({
 
 export const pickerSelectStyles = {
   inputIOS: {
-    fontSize: '$fontSize',
     paddingTop: 5,
     paddingHorizontal: 10,
     paddingBottom: 5,
@@ -108,7 +107,6 @@ export const pickerSelectStyles = {
   },
 
   inputAndroid: {
-    fontSize: '$fontSize',
     paddingTop: 5,
     paddingHorizontal: 10,
     paddingBottom: 5,

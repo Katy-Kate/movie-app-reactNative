@@ -1,63 +1,66 @@
-import CallApi from "../api/api";
-import { action, observable, configure, computed } from "mobx";
+import CallApi from '../api/api';
+import { AsyncStorage } from 'react-native';
+import { action, observable, configure, computed } from 'mobx';
+import { Actions } from 'react-native-router-flux';
 
-configure({ enforceActions: "always" });
-
+configure({ enforceActions: 'always' });
 
 class UserStore {
-  @observable user = {};
+	@observable user = {};
 
-  @observable showLoginModal = false;
+	@observable showLoginModal = false;
 
-  @observable errors = {};
+	@observable errors = {};
 
-  @observable session_id = null;
+	@observable session_id = null;
 
-  @computed
-  get isAuth() {
-    return Boolean(Object.keys(this.user).length);
-  }
+	@computed
+	get isAuth() {
+		return Boolean(Object.keys(this.user).length);
+	}
 
-  // @action
-  // getAuth() {
-  //   //const session_id = cookies.get("session_id");
-  //   if (session_id) {
-  //     CallApi.get("/account", {
-  //       params: { session_id: session_id }
-  //     }).then(user => {
-  //       this.updateAuth({ user });
-  //       // this.getListAddedMovies("favorite");
-  //       // this.getListAddedMovies("watchlist");
-  //     });
-  //   }
-  // }
+	@action
+	getAuth = () => {
+		AsyncStorage.getItem('session_id')
+			.then((session_id) =>
+				CallApi.get('/account', {
+					params: { session_id: session_id }
+				}).then((user) => {
+					this.updateAuth({ user });
+					Actions.movies();
+					// this.getListAddedMovies("favorite");
+					// this.getListAddedMovies("watchlist");
+					console.log('getAuth. session_id= ', session_id);
+				})
+			)
+			.catch(() => console.log('getAuth err'));
+	};
 
-  @action
-  updateAuth = ({ user, session_id }) => {
-    this.user = user;
-    // cookies.set("session_id", session_id, {
-    //   path: "/",
-    //   maxAge: 2592000
-    // });
-    this.session_id = session_id;
-  };
+	@action
+	updateAuth = ({ user, session_id }) => {
+		this.user = user;
+		this.session_id = session_id;
+		AsyncStorage.setItem('session_id', session_id);
+		console.log('updateAuth, session_id =', session_id);
+	};
 
-  @action
-  clearAuth = () => {
-    this.user = {};
-    this.session_id = null;
-  };
+	@action
+	clearAuth = () => {
+		this.user = {};
+		this.session_id = null;
+	};
 
-  @action
-  logOut = () => {
-    //cookies.remove("session_id", { path: "/" });
-    CallApi.delete("/authentication/session", {
-      params: { session_id: this.session_id }
-    }).then(() => {
-      this.clearAuth();
-      // this.watchlist = [];
-      // this.favorite = [];
-    });
-  };
+	@action
+	logOut = () => {
+		AsyncStorage.removeItem('session_id').then(() => console.log('logOut ')).catch(() => console.log('logOut err'));
+		CallApi.delete('/authentication/session', {
+			params: { session_id: this.session_id }
+		}).then(() => {
+			this.clearAuth();
+			Actions.loginForm();
+			// this.watchlist = [];
+			// this.favorite = [];
+		});
+	};
 }
 export const userStore = new UserStore();
