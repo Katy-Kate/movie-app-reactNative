@@ -7,12 +7,10 @@ import Header from "../Header/Header";
 import { inject, observer } from "mobx-react";
 import { movieScreenStyles, window } from "../styles";
 
-const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
-
-const appStyles = EStyleSheet.create({
+export const appStyles = EStyleSheet.create({
   animateContainer: {
-    height: window.height - 300,
-    width: window.width - 30,
+    height: window.height - 120,
+    width: window.width - 60,
     position: "absolute"
   }
 });
@@ -22,7 +20,6 @@ const appStyles = EStyleSheet.create({
 class MoviesScreen extends React.Component {
   constructor() {
     super();
-
     this.position = new Animated.ValueXY();
     this.state = {
       currentIndex: 0
@@ -42,12 +39,6 @@ class MoviesScreen extends React.Component {
         ...this.position.getTranslateTransform()
       ]
     };
-
-    this.likeOpacity = this.position.x.interpolate({
-      inputRange: [-window.width / 2, 0, window.width / 2],
-      outputRange: [0, 0, 1],
-      extrapolate: "clamp"
-    });
 
     this.nextCardOpacity = this.position.x.interpolate({
       inputRange: [-window.width / 2, 0, window.width / 2],
@@ -147,15 +138,9 @@ class MoviesScreen extends React.Component {
       })
       .reverse();
   };
-
-  // onScroll(e) {
-  //   const { locationX } = e.nativeEvent;
-  //   console.log("scrollToItem", locationX);
-  // }
-
   render() {
     const {
-      moviesPageStore: { isLoading, movies }
+      moviesPageStore: { isLoading }
     } = this.props;
 
     return (
@@ -170,20 +155,3 @@ class MoviesScreen extends React.Component {
 }
 
 export default MoviesScreen;
-
-// <Flatlist
-//   style={[{ width: window.width }, animatedListStyles]}
-//   onScroll={e => {
-//     this.onScroll(e);
-//   }}
-//   data={movies}
-//   renderItem={({ item }) => <MovieItem item={item} />}
-//   keyExtractor={item => String(item.id)}
-//   horizontal
-//   initialNumToRender={3}
-//   initialScrollIndex={this.state.cuuentIndex}
-//   scrollToIndex={20}
-//   ref={ref => {
-//     this.item = ref;
-//   }}
-//       />

@@ -150,9 +150,7 @@ export const movieScreenStyles = EStyleSheet.create({
   }
 });
 
-export const animatedListStyles = EStyleSheet.create({
-  flatList: {}
-});
+
 
 export const cardMovieStyles = EStyleSheet.create({
   cardMovie: {
