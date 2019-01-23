@@ -1,8 +1,10 @@
 import EStyleSheet from "react-native-extended-stylesheet";
-import { StyleSheet, Dimensions } from "react-native";
+import { Dimensions } from "react-native";
 const Color = require("color");
 
 export const window = Dimensions.get("window");
+export const WIDTH_SCREEN = window.width;
+export const HEIGHT_SCREEN = window.height;
 
 EStyleSheet.build({
   $mainColor: "powderblue",
@@ -145,24 +147,17 @@ export const filtersStyles = EStyleSheet.create({
 export const movieScreenStyles = EStyleSheet.create({
   moviesContainer: {
     backgroundColor: "$mainLightColor",
-    height: window.height,
+    height: HEIGHT_SCREEN,
     position: "relative"
   }
 });
 
-
-
 export const cardMovieStyles = EStyleSheet.create({
   cardMovie: {
-    width: window.width - 30,
+    width: WIDTH_SCREEN - 30,
     height: 500,
     borderRadius: "$borderRadiusButton",
     overflow: "hidden"
-    // position: "absolute",
-    // top: 200,
-    // right: 0,
-    // left: 0,
-    // bottom: 0
   },
 
   cardMovieTitle: {
@@ -172,7 +167,7 @@ export const cardMovieStyles = EStyleSheet.create({
   },
 
   imageMovie: {
-    height: 650,
+    height: HEIGHT_SCREEN / 2,
     borderTopRightRadius: "$borderRadiusButton",
     borderTopLeftRadius: "$borderRadiusButton"
   }

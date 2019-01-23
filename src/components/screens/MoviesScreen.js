@@ -1,153 +1,64 @@
 import React from "react";
-import EStyleSheet from "react-native-extended-stylesheet";
-import { View, FlatList, Animated, PanResponder } from "react-native";
+import { View, FlatList, Animated, Easing } from "react-native";
 import Loader from "../Loader";
 import MovieItem from "../Movies/MovieItem";
 import Header from "../Header/Header";
 import { inject, observer } from "mobx-react";
-import { movieScreenStyles, window } from "../styles";
+import { movieScreenStyles, WIDTH_SCREEN } from "../styles";
 
-export const appStyles = EStyleSheet.create({
-  animateContainer: {
-    height: window.height - 120,
-    width: window.width - 60,
-    position: "absolute"
-  }
-});
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+
+const offsetX = new Animated.Value(0);
+
+const animatedFlatListItem = index => {
+  return {
+    opacity: offsetX.interpolate({
+      inputRange: [
+        (index - 1) * WIDTH_SCREEN,
+        index * WIDTH_SCREEN,
+        (index + 1) * WIDTH_SCREEN
+      ],
+      outputRange: [0, 1, 0]
+    })
+  };
+};
 
 @inject("moviesPageStore")
 @observer
 class MoviesScreen extends React.Component {
-  constructor() {
-    super();
-    this.position = new Animated.ValueXY();
-    this.state = {
-      currentIndex: 0
-    };
-
-    this.rotate = this.position.x.interpolate({
-      inputRange: [-window.width / 2, 0, window.width / 2],
-      outputRange: ["-10deg", "0deg", "10deg"],
-      extrapolate: "clamp"
-    });
-
-    this.rotateAndTranslate = {
-      transform: [
-        {
-          rotate: this.rotate
-        },
-        ...this.position.getTranslateTransform()
-      ]
-    };
-
-    this.nextCardOpacity = this.position.x.interpolate({
-      inputRange: [-window.width / 2, 0, window.width / 2],
-      outputRange: [1, 0, 1],
-      axtrapolate: "calmp"
-    });
-
-    this.nextCardScale = this.position.x.interpolate({
-      inputRange: [-window.width / 2, 0, window.width / 2],
-      outputRange: [1, 1, 1],
-      axtrapolate: "calmp"
-    });
-  }
-
   componentDidMount() {
     this.props.moviesPageStore.getMovies();
   }
-  componentWillMount() {
-    this.PanResponder = new PanResponder.create({
-      onStartShouldSetPanResponder: (evt, gestureState) => true,
-      onPanResponderMove: (evt, gestureState) => {
-        this.position.setValue({ x: gestureState.dx, y: gestureState.dy });
-      },
-      onPanResponderRelease: (evt, gestureState) => {
-        if (gestureState.dx > 120) {
-          Animated.spring(this.position, {
-            toValue: { x: window.width + 100, y: gestureState.dy }
-          }).start(() => {
-            this.setState(
-              {
-                currentIndex: this.state.currentIndex + 1
-              },
-              () => {
-                this.position.setValue({ x: 0, y: 0 });
-              }
-            );
-          });
-        } else if (gestureState.dx < -120) {
-          Animated.spring(this.position, {
-            toValue: { x: -window.width - 100, y: gestureState.dy }
-          }).start(() => {
-            this.setState(
-              {
-                currentIndex: this.state.currentIndex + 1
-              },
-              () => {
-                this.position.setValue({ x: 0, y: 0 });
-              }
-            );
-          });
-        } else {
-          Animated.spring(this.position, {
-            toValue: { x: 0, y: 0 },
-            friction: 4
-          }).start();
-        }
-      }
-    });
-  }
-
-  renderMovies = () => {
-    return this.props.moviesPageStore.movies
-      .map((item, i) => {
-        if (i < this.state.currentIndex) {
-          return null;
-        } else if (i === this.state.currentIndex) {
-          return (
-            <Animated.View
-              key={item.id}
-              {...this.PanResponder.panHandlers}
-              style={[appStyles.animateContainer, this.rotateAndTranslate]}
-            >
-              <MovieItem item={item} />
-            </Animated.View>
-          );
-        } else {
-          return (
-            <Animated.View
-              key={item.id}
-              style={[
-                appStyles.animateContainer,
-
-                {
-                  transform: [
-                    {
-                      scale: this.nextCardScale
-                    }
-                  ],
-                  opacity: this.nextCardOpacity
-                }
-              ]}
-            >
-              <MovieItem item={item} />
-            </Animated.View>
-          );
-        }
-      })
-      .reverse();
-  };
   render() {
     const {
-      moviesPageStore: { isLoading }
+      moviesPageStore: { isLoading, movies }
     } = this.props;
 
     return (
       <View>
         <Header />
         <View style={movieScreenStyles.moviesContainer}>
-          {isLoading ? <Loader /> : this.renderMovies()}
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <AnimatedFlatList
+              style={{ width: WIDTH_SCREEN - 30 }}
+              data={movies}
+              renderItem={({ item, index }) => (
+                <Animated.View style={animatedFlatListItem(index)}>
+                  <MovieItem item={item} index={index} />
+                </Animated.View>
+              )}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={item => String(item.id)}
+              scrollEventThrottle={16}
+              onScroll={Animated.event(
+                [{ nativeEvent: { contentOffset: { x: offsetX } } }],
+                { useNativeDriver: true }
+              )}
+            />
+          )}
         </View>
       </View>
     );
