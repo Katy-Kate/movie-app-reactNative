@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TextInput, KeyboardAvoidingView } from "react-native";
-import { Button, Input } from "react-native-elements";
+import { Button } from "react-native-elements";
 import { loginFormStyles } from "../styles";
 
 import { inject, observer } from "mobx-react";
@@ -11,9 +11,9 @@ import { inject, observer } from "mobx-react";
 }))
 @observer
 class LoginFormScreen extends React.Component {
-  componentDidMount(){
+  componentDidMount() {
     this.props.userStore.getAuth();
-    }
+  }
   render() {
     const {
       loginFormStore: {
@@ -37,11 +37,9 @@ class LoginFormScreen extends React.Component {
             }}
             value={loginValues.username}
           />
-          {errors.username
-            ? <Text style={loginFormStyles.errors}>
-                {errors.username}
-              </Text>
-            : null}
+          {errors.username ? (
+            <Text style={loginFormStyles.errors}>{errors.username}</Text>
+          ) : null}
 
           <TextInput
             style={loginFormStyles.input}
@@ -52,11 +50,9 @@ class LoginFormScreen extends React.Component {
             }}
             value={loginValues.password}
           />
-          {errors.password
-            ? <Text style={loginFormStyles.errors}>
-                {errors.password}
-              </Text>
-            : null}
+          {errors.password ? (
+            <Text style={loginFormStyles.errors}>{errors.password}</Text>
+          ) : null}
 
           <TextInput
             style={loginFormStyles.input}
@@ -67,11 +63,9 @@ class LoginFormScreen extends React.Component {
             }}
             value={loginValues.repeatPassword}
           />
-          {errors.repeatPassword
-            ? <Text style={loginFormStyles.errors}>
-                {errors.repeatPassword}
-              </Text>
-            : null}
+          {errors.repeatPassword ? (
+            <Text style={loginFormStyles.errors}>{errors.repeatPassword}</Text>
+          ) : null}
         </KeyboardAvoidingView>
         <Button
           title="Submit"
@@ -81,11 +75,9 @@ class LoginFormScreen extends React.Component {
           disabledStyle={loginFormStyles.submitDisabled}
           onPress={onLogin}
         />
-        {errors.base
-          ? <Text style={loginFormStyles.errors}>
-              {errors.base}
-            </Text>
-          : null}
+        {errors.base ? (
+          <Text style={loginFormStyles.errors}>{errors.base}</Text>
+        ) : null}
       </View>
     );
   }

@@ -4,7 +4,7 @@ import { Button } from "react-native-elements";
 import { filtersStyles } from "../styles";
 import PrimaryReleaseYear from "../Filters/PrimaryReleaseYear";
 import SortBy from "../Filters/SortBy";
-import { loginFormStyles } from "../styles";
+import { loginFormStyles, WIDTH_SCREEN } from "../styles";
 
 import { inject, observer } from "mobx-react";
 import { Actions } from "react-native-router-flux";

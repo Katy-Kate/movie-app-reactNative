@@ -5,7 +5,7 @@ import { cardMovieStyles } from "../styles";
 
 class MovieItem extends React.Component {
   render() {
-    const { item, style } = this.props;
+    const { item } = this.props;
     const img =
       item.backdrop_path || item.poster_path
         ? `https://image.tmdb.org/t/p/w500${item.backdrop_path ||

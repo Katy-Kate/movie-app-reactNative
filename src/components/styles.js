@@ -8,7 +8,7 @@ export const HEIGHT_SCREEN = window.height;
 
 EStyleSheet.build({
   $mainColor: "powderblue",
-  $mainLightColor: "skyblue",
+  $mainLightColor: "#efefef",
   $mainDarkColor: "#073356",
 
   $white: "#ffffff",
@@ -61,9 +61,9 @@ export const loginFormStyles = EStyleSheet.create({
   submitStyles: {
     backgroundColor: () =>
       Color(EStyleSheet.value("$mainDarkColor")).darken(0.5),
-    width: 300,
+    width: WIDTH_SCREEN - 100,
     height: 45,
-    marginTop: 10,
+    marginTop: 30,
     borderRadius: "$borderRadiusButton"
   },
 
@@ -95,48 +95,54 @@ export const headerStyles = EStyleSheet.create({
   userAvatar: {
     width: 40,
     height: 40,
-    borderRadius: 50
+    borderRadius: 20
   }
 });
 
 export const pickerSelectStyles = {
   inputIOS: {
+    marginBottom: 20,
     paddingTop: 5,
     paddingHorizontal: 10,
     paddingBottom: 5,
     borderWidth: 1,
     borderColor: "gray",
-    height: 30
+    height: 50
   },
 
   inputAndroid: {
+    marginBottom: 20,
     paddingTop: 5,
     paddingHorizontal: 10,
     paddingBottom: 5,
     borderWidth: 1,
     borderColor: "gray",
-    height: 30
+    height: 50
   }
 };
 
 export const filtersStyles = EStyleSheet.create({
   wrapper: {
-    backgroundColor: "$mainColor",
+    backgroundColor: "$mainLightColor",
     paddingHorizontal: 20,
     paddingVertical: 10,
     height: "100%",
-    zIndex: 10
+    zIndex: 100000,
+    position: "relative",
+    justifyContent: "center"
   },
 
   filters: {
     flex: 1,
     justifyContent: "flex-start",
-    alignItems: "stretch"
+    alignItems: "center",
+    width: WIDTH_SCREEN - 40
   },
 
   title: {
     fontSize: () => 1.3 * EStyleSheet.value("$fontSize"),
     color: "$mainDarkColor",
+    marginTop: 30,
     marginBottom: 10,
     paddingBottom: 10,
     textAlign: "center",
@@ -147,15 +153,22 @@ export const filtersStyles = EStyleSheet.create({
 export const movieScreenStyles = EStyleSheet.create({
   moviesContainer: {
     backgroundColor: "$mainLightColor",
-    height: HEIGHT_SCREEN,
-    position: "relative"
+    height: HEIGHT_SCREEN
+  },
+  btn: {
+    backgroundColor: () =>
+      Color(EStyleSheet.value("$mainDarkColor")).lighten(0.1),
+    width: WIDTH_SCREEN / 2 - 50,
+    height: 45,
+    marginTop: 30,
+    borderRadius: "$borderRadiusButton"
   }
 });
 
 export const cardMovieStyles = EStyleSheet.create({
   cardMovie: {
     width: WIDTH_SCREEN - 30,
-    height: 500,
+    height: 450,
     borderRadius: "$borderRadiusButton",
     overflow: "hidden"
   },

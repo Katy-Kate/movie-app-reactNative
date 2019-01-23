@@ -1,5 +1,7 @@
 import React from "react";
-import { View, FlatList, Animated, Easing } from "react-native";
+import EStyleSheet from "react-native-extended-stylesheet";
+import { View, FlatList, Animated } from "react-native";
+import { Button } from "react-native-elements";
 import Loader from "../Loader";
 import MovieItem from "../Movies/MovieItem";
 import Header from "../Header/Header";
@@ -31,7 +33,14 @@ class MoviesScreen extends React.Component {
   }
   render() {
     const {
-      moviesPageStore: { isLoading, movies }
+      moviesPageStore: {
+        isLoading,
+        movies,
+        onChangePage,
+        prevPage,
+        nextPage,
+        page
+      }
     } = this.props;
 
     return (
@@ -41,23 +50,52 @@ class MoviesScreen extends React.Component {
           {isLoading ? (
             <Loader />
           ) : (
-            <AnimatedFlatList
-              style={{ width: WIDTH_SCREEN - 30 }}
-              data={movies}
-              renderItem={({ item, index }) => (
-                <Animated.View style={animatedFlatListItem(index)}>
-                  <MovieItem item={item} index={index} />
-                </Animated.View>
-              )}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              keyExtractor={item => String(item.id)}
-              scrollEventThrottle={16}
-              onScroll={Animated.event(
-                [{ nativeEvent: { contentOffset: { x: offsetX } } }],
-                { useNativeDriver: true }
-              )}
-            />
+            <View>
+              <AnimatedFlatList
+                style={{
+                  width: WIDTH_SCREEN
+                }}
+                data={movies}
+                renderItem={({ item, index }) => (
+                  <Animated.View
+                    style={[animatedFlatListItem(index), { marginTop: 20 }]}
+                  >
+                    <MovieItem item={item} index={index} />
+                  </Animated.View>
+                )}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={item => String(item.id)}
+                scrollEventThrottle={16}
+                onScroll={Animated.event(
+                  [{ nativeEvent: { contentOffset: { x: offsetX } } }],
+                  { useNativeDriver: true }
+                )}
+              />
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: "row",
+                  justifyContent: "center"
+                }}
+              >
+                <Button
+                  disabled={page === 1}
+                  disabledStyle={{
+                    opacity: 0.5,
+                    backgroundColor: EStyleSheet.value("$mainDarkColor")
+                  }}
+                  title="prev page"
+                  buttonStyle={movieScreenStyles.btn}
+                  onPress={prevPage}
+                />
+                <Button
+                  title="next page"
+                  buttonStyle={movieScreenStyles.btn}
+                  onPress={nextPage}
+                />
+              </View>
+            </View>
           )}
         </View>
       </View>
