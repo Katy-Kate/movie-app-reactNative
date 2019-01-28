@@ -1,6 +1,7 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
-import { View, Image, TouchableHighlight } from "react-native";
+import EStyleSheet from "react-native-extended-stylesheet";
+import { View, Image, Text, TouchableHighlight } from "react-native";
 import { Icon } from "react-native-elements";
 import { headerStyles } from "../styles";
 import { Actions } from "react-native-router-flux";
@@ -21,18 +22,33 @@ class Header extends React.Component {
         <Icon
           name="filter"
           type="foundation"
-          color="#517fa4"
+          color={EStyleSheet.value("$mainLightColor")}
           onPress={() => {
             Actions.filters();
           }}
         />
-        <TouchableHighlight>
-          {userStore.isAuth ? (
+
+        {userStore.isAuth ? (
+          <View style={{ flexDirection: "row" }}>
             <Image style={headerStyles.userAvatar} source={{ uri: avatar }} />
-          ) : (
-            <Icon reverse name="person" type="Social" color="#517fa4" />
-          )}
-        </TouchableHighlight>
+            <TouchableHighlight onPress={userStore.logOut}>
+              <View style={{ flexDirection: "column" }}>
+                <Icon
+                  name="arrow-right"
+                  type="foundation"
+                  color={EStyleSheet.value("$mainLightColor")}
+                />
+                <Text style={{ fontSize: 10, color: "#eee" }}>Log out</Text>
+              </View>
+            </TouchableHighlight>
+          </View>
+        ) : (
+          <Icon
+            name="person"
+            type="Social"
+            color={EStyleSheet.value("$mainLightColor")}
+          />
+        )}
       </View>
     );
   }

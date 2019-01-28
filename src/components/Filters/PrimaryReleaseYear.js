@@ -31,12 +31,16 @@ class PrimaryReleaseYear extends React.Component {
     ]
   };
   render() {
-    const { moviesPageStore: { onChangeFilters }, options } = this.props;
+    const {
+      moviesPageStore: { onChangeFilters, filters },
+      options
+    } = this.props;
     return (
       <RNPickerSelect
         items={options}
         placeholder={{}}
         style={{ ...pickerSelectStyles }}
+        value={filters.primary_release_year}
         onValueChange={value => {
           onChangeFilters({ target: { name: "primary_release_year", value } });
         }}

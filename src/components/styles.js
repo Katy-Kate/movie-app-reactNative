@@ -89,10 +89,12 @@ export const headerStyles = EStyleSheet.create({
     paddingHorizontal: 10,
     paddingBottom: 10,
     backgroundColor: "$mainDarkColor",
-    width: "100%"
+    width: "100%",
+    zIndex: 10000000
   },
 
   userAvatar: {
+    marginRight: 10,
     width: 40,
     height: 40,
     borderRadius: 20
@@ -111,13 +113,14 @@ export const pickerSelectStyles = {
   },
 
   inputAndroid: {
-    marginBottom: 20,
-    paddingTop: 5,
+    marginBottom: 10,
+    marginTop: 10,
+    paddingTop: 10,
     paddingHorizontal: 10,
     paddingBottom: 5,
     borderWidth: 1,
     borderColor: "gray",
-    height: 50
+    height: 25
   }
 };
 
@@ -136,7 +139,8 @@ export const filtersStyles = EStyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    width: WIDTH_SCREEN - 40
+    width: WIDTH_SCREEN - 40,
+    zIndex: 100000
   },
 
   title: {
@@ -160,7 +164,7 @@ export const movieScreenStyles = EStyleSheet.create({
       Color(EStyleSheet.value("$mainDarkColor")).lighten(0.1),
     width: WIDTH_SCREEN / 2 - 50,
     height: 45,
-    marginTop: 30,
+    marginTop: 20,
     borderRadius: "$borderRadiusButton"
   }
 });
@@ -180,7 +184,7 @@ export const cardMovieStyles = EStyleSheet.create({
   },
 
   imageMovie: {
-    height: HEIGHT_SCREEN / 2,
+    height: HEIGHT_SCREEN / 2.3,
     borderTopRightRadius: "$borderRadiusButton",
     borderTopLeftRadius: "$borderRadiusButton"
   }

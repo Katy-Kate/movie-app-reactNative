@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, TextInput, KeyboardAvoidingView } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback
+} from "react-native";
 import { Button } from "react-native-elements";
 import { loginFormStyles } from "../styles";
 
@@ -28,45 +34,49 @@ class LoginFormScreen extends React.Component {
 
     return (
       <View style={loginFormStyles.loginFormContainer}>
-        <KeyboardAvoidingView behavior="position">
-          <TextInput
-            style={loginFormStyles.input}
-            onChangeText={value => onChange(value, "username")}
-            onBlur={value => {
-              handleBlur(value, "username");
-            }}
-            value={loginValues.username}
-          />
-          {errors.username ? (
-            <Text style={loginFormStyles.errors}>{errors.username}</Text>
-          ) : null}
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <KeyboardAvoidingView behavior="position">
+            <TextInput
+              style={loginFormStyles.input}
+              onChangeText={value => onChange(value, "username")}
+              onBlur={value => {
+                handleBlur(value, "username");
+              }}
+              value={loginValues.username}
+            />
+            {errors.username ? (
+              <Text style={loginFormStyles.errors}>{errors.username}</Text>
+            ) : null}
 
-          <TextInput
-            style={loginFormStyles.input}
-            secureTextEntry={true}
-            onChangeText={value => onChange(value, "password")}
-            onBlur={value => {
-              handleBlur(value, "password");
-            }}
-            value={loginValues.password}
-          />
-          {errors.password ? (
-            <Text style={loginFormStyles.errors}>{errors.password}</Text>
-          ) : null}
+            <TextInput
+              style={loginFormStyles.input}
+              secureTextEntry={true}
+              onChangeText={value => onChange(value, "password")}
+              onBlur={value => {
+                handleBlur(value, "password");
+              }}
+              value={loginValues.password}
+            />
+            {errors.password ? (
+              <Text style={loginFormStyles.errors}>{errors.password}</Text>
+            ) : null}
 
-          <TextInput
-            style={loginFormStyles.input}
-            secureTextEntry={true}
-            onChangeText={value => onChange(value, "repeatPassword")}
-            onBlur={value => {
-              handleBlur(value, "repeatPassword");
-            }}
-            value={loginValues.repeatPassword}
-          />
-          {errors.repeatPassword ? (
-            <Text style={loginFormStyles.errors}>{errors.repeatPassword}</Text>
-          ) : null}
-        </KeyboardAvoidingView>
+            <TextInput
+              style={loginFormStyles.input}
+              secureTextEntry={true}
+              onChangeText={value => onChange(value, "repeatPassword")}
+              onBlur={value => {
+                handleBlur(value, "repeatPassword");
+              }}
+              value={loginValues.repeatPassword}
+            />
+            {errors.repeatPassword ? (
+              <Text style={loginFormStyles.errors}>
+                {errors.repeatPassword}
+              </Text>
+            ) : null}
+          </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
         <Button
           title="Submit"
           fontSize={14}

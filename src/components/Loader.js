@@ -1,15 +1,12 @@
-import React from 'react';
-import { View } from 'react-native';
-import { loader } from './styles';
-import Spinner from 'react-native-loading-spinner-overlay';
+import React from "react";
+import { View } from "react-native";
+import { loader } from "./styles";
+import Spinner from "react-native-loading-spinner-overlay";
 
-const Loader = () =>
+const Loader = () => (
   <View style={loader.container}>
-    <Spinner
-      visible
-      textContent={'Loading...'}
-      textStyle={loader.spinnerTextStyle}
-    />
-  </View>;
+    <Spinner visible textStyle={loader.spinnerTextStyle} />
+  </View>
+);
 
 export default Loader;

@@ -32,12 +32,16 @@ class SortBy extends React.Component {
   };
 
   render() {
-    const { moviesPageStore: { onChangeFilters }, options } = this.props;
+    const {
+      moviesPageStore: { onChangeFilters, filters },
+      options
+    } = this.props;
     return (
       <RNPickerSelect
         items={options}
         placeholder={{}}
         style={{ ...pickerSelectStyles }}
+        value={filters.sort_by}
         onValueChange={value => {
           onChangeFilters({ target: { name: "sort_by", value } });
         }}

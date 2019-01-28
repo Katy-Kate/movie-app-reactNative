@@ -62,8 +62,6 @@ class UserStore {
     }).then(() => {
       this.clearAuth();
       Actions.loginForm();
-      // this.watchlist = [];
-      // this.favorite = [];
     });
   };
 }
